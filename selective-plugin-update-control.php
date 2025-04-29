@@ -1,10 +1,16 @@
 <?php
 /*
 Plugin Name: Selective Plugin Update Control
-Description: Allows selective disabling of plugin updates
-Version: 1.0
+Plugin URI: https://github.com/maikunari/disable-plugin-updates
+Description: Allows selective disabling of plugin updates, giving administrators control over which plugins receive updates.
+Version: 1.0.0
 Author: maikunari
+Author URI: https://github.com/maikunari  
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: selective-plugin-update-control
 */
+
 
 // Prevent direct access
 if (!defined('ABSPATH')) {
