@@ -3,7 +3,7 @@
 Plugin Name: Selective Plugin Update Control
 Plugin URI: https://github.com/maikunari/disable-plugin-updates
 Description: Allows selective disabling of plugin updates, giving administrators control over which plugins receive updates.
-Version: 1.0.0
+Version: 1.1.0
 Author: maikunari
 Author URI: https://github.com/maikunari  
 License: GPLv2 or later
