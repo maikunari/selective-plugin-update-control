@@ -62,7 +62,12 @@ class Selective_Plugin_Update_Control {
                     </tr>
                     <?php foreach ($plugins as $plugin_file => $plugin_data): ?>
                         <tr>
-                            <td><?php echo esc_html($plugin_data['Name']); ?></td>
+                            <td>
+                                <?php if (isset($disabled_plugins[$plugin_file])): ?>
+                                    <span class="notification-indicator"></span>
+                                <?php endif; ?>
+                                <?php echo esc_html($plugin_data['Name']); ?>
+                            </td>
                             <td>
                                 <input type="checkbox" 
                                        name="<?php echo esc_attr($this->option_name); ?>[<?php echo esc_attr($plugin_file); ?>]"
@@ -98,4 +103,18 @@ class Selective_Plugin_Update_Control {
 
 // Initialize the plugin
 new Selective_Plugin_Update_Control();
+
+function selective_enqueue_styles() {
+    echo '<style>
+        .notification-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: red;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+    </style>';
+}
+add_action('admin_head', 'selective_enqueue_styles');
 ?>
