@@ -23,3 +23,6 @@ This plugin provides a user interface in the WordPress admin area to selectively
 == Changelog ==
 = 1.0 =
 * Initial release.
+
+= 1.1 =
+* Feature: Added indicator dot to plugins page to show which plugins have their notifications deactivated.  
