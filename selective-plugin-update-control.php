@@ -11,7 +11,6 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: selective-plugin-update-control
 */
 
-
 // Prevent direct access
 if (!defined('ABSPATH')) {
     exit;
@@ -24,6 +23,8 @@ class Selective_Plugin_Update_Control {
         add_action('admin_menu', [$this, 'add_admin_menu']);
         add_action('admin_init', [$this, 'register_settings']);
         add_filter('site_transient_update_plugins', [$this, 'disable_plugin_updates']);
+        add_filter('plugin_action_links', [$this, 'add_notification_indicator'], 10, 4);
+        add_action('admin_enqueue_scripts', [$this, 'add_indicator_styles']);
     }
 
     // Add admin menu page
@@ -63,9 +64,6 @@ class Selective_Plugin_Update_Control {
                     <?php foreach ($plugins as $plugin_file => $plugin_data): ?>
                         <tr>
                             <td>
-                                <?php if (isset($disabled_plugins[$plugin_file])): ?>
-                                    <span class="notification-indicator"></span>
-                                <?php endif; ?>
                                 <?php echo esc_html($plugin_data['Name']); ?>
                             </td>
                             <td>
@@ -99,22 +97,24 @@ class Selective_Plugin_Update_Control {
 
         return $value;
     }
+
+    public function add_notification_indicator($actions, $plugin_file, $plugin_data, $context) {
+        $disabled_plugins = get_option($this->option_name, []);
+        if (isset($disabled_plugins[$plugin_file])) {
+            $indicator = '<span class="update-disabled-indicator" title="Updates disabled">●</span>';
+            return array_merge($actions, ['indicator' => $indicator]);
+        }
+        return $actions;
+    }
+
+    public function add_indicator_styles() {
+        $screen = get_current_screen();
+        if ($screen && ($screen->base === 'plugins' || $screen->id === 'plugins' || $screen->id === 'plugins-network')) {
+            wp_add_inline_style('wp-admin', ".update-disabled-indicator { color: red !important; font-size: 16px; margin-right: 10px; cursor: help; }");
+        }
+    }
 }
 
 // Initialize the plugin
 new Selective_Plugin_Update_Control();
-
-function selective_enqueue_styles() {
-    echo '<style>
-        .notification-indicator {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background-color: red;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-    </style>';
-}
-add_action('admin_head', 'selective_enqueue_styles');
 ?>
