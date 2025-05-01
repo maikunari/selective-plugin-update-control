@@ -20,6 +20,10 @@ This plugin provides a user interface in the WordPress admin area to selectively
 - Navigate to Settings > Plugin Updates in your WordPress admin area.
 - Check the boxes next to the plugins you want to disable updates for and save your changes.
 
+== Security Considerations ==
+
+While this plugin allows you to selectively disable updates for specific plugins, it's crucial to regularly update your plugins to maintain security, stability, and compatibility. Outdated plugins can introduce vulnerabilities that may be exploited, so use this tool responsibly and do not leave plugins un-updated indefinitely. Always review update notes and enable updates when possible to protect your site.
+
 == Changelog ==
 = 1.0 =
 * Initial release.
